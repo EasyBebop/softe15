@@ -5,6 +5,33 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <html>
+    
+    <?php
+$servername = "173.194.82.183";
+$username = "test";
+$password = "test";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} 
+echo "Connected successfully";
+?>
+    
+    <?php
+$username = "test";
+$password = "test";
+$hostname = "2001:4860:4864:1:7561:8ee5:1944:f272"; 
+
+//connection to the database
+$dbhandle = mysql_connect($hostname, $username, $password) 
+  or die("Unable to connect to MySQL");
+echo "Connected to MySQL<br>";
+?>
+    
     <head>
         <img style="position:absolute; left:0; right:0; top:-100px; margin:auto;" src="logo.png" alt="T.R.I.V.I.A" width="300" height="300">
         <style>
