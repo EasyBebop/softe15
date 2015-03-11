@@ -19,14 +19,14 @@ if(isset($_POST['question'])||isset($_POST['answer'])||isset($_POST['fake1'])||i
 {	
 	if(empty($_POST['question'])|| empty($_POST['answer']) || empty($_POST['fake1']) || empty($_POST['fake2'])|| empty($_POST['fake3']))
 	{
-		echo "please fill all fields to submit a question <br>";
+		echo "Please fill in all fields to submit a question. <br>";
 	}
         else
         {
              $sql = "INSERT INTO questions (Q,correct,fake1,fake2,fake3)
              VALUES ('$_POST[question]','$_POST[answer]','$_POST[fake1]','$_POST[fake2]','$_POST[fake3]')";
              $retval = mysql_query( $sql, $dbhandle );
-             echo "Your question was successfully submited";
+             echo "Congratulations!  Your question was successfully submitted!";
         }   
 }
 ?>
@@ -39,7 +39,7 @@ if(isset($_POST['question'])||isset($_POST['answer'])||isset($_POST['fake1'])||i
             p{text-align: center; font-size:25px;}
             #form{margin-left:20px; font-size:20px;}
         </style>
-    <title>T.R.I.V.I.A submit question </title>
+    <title>T.R.I.V.I.A Question Submission </title>
 </head>
 
 <body>
