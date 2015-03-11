@@ -23,11 +23,11 @@ $selected = mysql_select_db("accounts",$dbhandle)
   or die("Could not select examples");
 
 //check, post, create account
-if(isset($_POST["username"])||isset($_POST['password']))
+if(isset($_POST['username']) || isset($_POST['password']))
 {
     if(empty($_POST['username'])|| empty($_POST['password']))
 	{
-		echo "please fill all fields to create an accounnt <br>";
+		echo "Please fill in all fields to create an account. <br>";
 	}
     else
     {
@@ -70,7 +70,7 @@ if(isset($_POST["username"])||isset($_POST['password']))
         </style>
 
         <meta charset="UTF-8">
-        <title>T.R.I.V.I.A create account </title>
+        <title>T.R.I.V.I.A Create an Account </title>
     </head>
     <body>
         
