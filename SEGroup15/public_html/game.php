@@ -30,12 +30,13 @@
     $result2 = mysql_query($sql);
     
         $row = mysql_fetch_array($result2) or die(mysql_error());  
-        $option1 = $row['correct'];
-        $option2 = $row['fake1'];
-        $option3 = $row['fake2'];
-        $option4 = $row['fake3'];
+//        $option1 = $row['correct'];
+//        $option2 = $row['fake1'];
+//        $option3 = $row['fake2'];
+//        $option4 = $row['fake3'];
         $question = $row['Q'];
-    
+        $options = array("$row[correct]","$row[fake1]","$row[fake2]","$row[fake3]");
+        shuffle($options);
     
     ?>
         
@@ -52,39 +53,24 @@
     <body>
         <img style="position:absolute; left:0; right:0; top:130px;  margin:auto;" src="navbar.png" alt="navbar" width="900" height="40">
         
+        
+        
         <!-- question -->
         <br><p> <?php echo $question ?> <p>
         
-        <!--option 1-->
-        <div> 
-            <form method="post" action="" name="option1" id="option1">
-            <br><br><br><a class="option" href="#" onclick="document.option1.submit();"><?php echo $option1;?></a> 
-            </form>
-        </div>
-        <!--option 2-->
-        <div> 
-            <form method="post" action="" name="option2" id="option2">
-            <br><br><br><a class="option" href="#" onclick="document.option1.submit();"><?php echo $option2;?></a> 
-            </form>
-        </div>
-        <!--option 3-->
-        <div> 
-            <form method="post" action="" name="option3" id="option3">
-            <br><br><br><a class="option" href="#" onclick="document.option1.submit();"><?php echo $option3;?></a> 
-            </form>
-        </div>
-        <!--option 4-->
-        <div> 
-            <form method="post" action="" name="option4" id="option4">
-            <br><br><br><a class="option" href="#" onclick="document.option1.submit();"><?php echo $option4;?></a> 
-            </form>
-        </div>
-        
-        <br><br>
-        
+        <!-- options -->  
         <?php
-          
+        for( $i = 0; $i < sizeof($options); $i++)
+        {
+             echo "<div> 
+            <form method=\"post\" action=\"\" name=\"option$i\" id=\"option$i\">
+                <br><br><br>
+                <a class=\"option\" href=\"#\" onclick=\"document.option$i.submit();\">$options[$i]</a> 
+            </form>
+            </div> <br><br>";
+        }
         ?>
+   
         
     </body>
     
