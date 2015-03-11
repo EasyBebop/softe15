@@ -2,41 +2,90 @@
 <html>
     
     <head>
+        
+    <?php   
+    
+    $hostname = "173.194.82.183";
+    $username = "test";
+    $password = "test";
+
+    // Create connection
+    $dbhandle = mysql_connect($hostname, $username, $password) 
+      or die("Unable to connect to MySQL");
+    echo "Connected to MySQL<br>";
+
+    //select a database to work with
+    $selected = mysql_select_db("questions",$dbhandle) 
+    or die("Could not select examples");
+    
+    //get number of questions available
+    $result1 = mysql_query("select count(1) FROM questions");
+    $numRow = mysql_fetch_array($result1);
+    $numOfQuestions = $numRow[0];
+    
+    //generate random question
+    $random = mt_rand(1,$numOfQuestions);
+    
+    $sql = "SELECT * FROM questions WHERE QID = $random";
+    $result2 = mysql_query($sql);
+    
+        $row = mysql_fetch_array($result2) or die(mysql_error());  
+        $option1 = $row['correct'];
+        $option2 = $row['fake1'];
+        $option3 = $row['fake2'];
+        $option4 = $row['fake3'];
+        $question = $row['Q'];
+    
+    
+    ?>
+        
         <title>Playing a game</title>
         <a href="index.html"><img style="position:absolute; left:0; right:0; top:-30px; margin:auto;" src="logo.png" alt="T.R.I.V.I.A" width="300" height="200"></a>
          <style>
             html{ background-color:#CCE6FF;}
             body{ margin-left:250px; margin-right:250px;margin-top:150px; margin-bottom:130px; background-color: white; height:900px;}
             p{text-align: center; font-size:25px;}
+            .option { text-decoration:none; color: #204081; width: 500px; text-align: center; border: 1px solid #9325BC; padding: 10px; position:absolute; left:0; right:0; margin:auto; font-size:25px; } 
+            .option:hover { -moz-box-shadow: 0 0 20px #ccc; -webkit-box-shadow: 0 0 20px #ccc; box-shadow: 0 0 10px #ccc; }
          </style>
     </head>
     <body>
-         <?php
-            $score = 0;
-            $question = NULL;
-            $correct = NULL;
-            $false1 = NULL;
-            $false2 = NULL;
-            $false3 = NULL;
-        {
-        ?>
-        <h1>Future location for single player</h1>
-        <form id="answerForm" method="post">
-        <output type="text" id="q" name="question" value="<?php echo $question ?>">
-	<input type="text" id="a1" name="answer1">
-	<input type="text" id="a2" name="answer2">
-	<input type="text" id="a3" name="answer3">
-        <input type="text" id="a4" name="answer4"><form id="answerForm" method="post">
-        <output type="text" id="q" name="question" value="<?php echo $question ?>">
-	<input type="text" id="a1" name="answer1">
-	<input type="text" id="a2" name="answer2">
-	<input type="text" id="a3" name="answer3">
-        <input type="text" id="a4" name="answer4">
-	</form>
-
+        <img style="position:absolute; left:0; right:0; top:130px;  margin:auto;" src="navbar.png" alt="navbar" width="900" height="40">
+        
+        <!-- question -->
+        <br><p> <?php echo $question ?> <p>
+        
+        <!--option 1-->
+        <div> 
+            <form method="post" action="" name="option1" id="option1">
+            <br><br><br><a class="option" href="#" onclick="document.option1.submit();"><?php echo $option1;?></a> 
+            </form>
+        </div>
+        <!--option 2-->
+        <div> 
+            <form method="post" action="" name="option2" id="option2">
+            <br><br><br><a class="option" href="#" onclick="document.option1.submit();"><?php echo $option2;?></a> 
+            </form>
+        </div>
+        <!--option 3-->
+        <div> 
+            <form method="post" action="" name="option3" id="option3">
+            <br><br><br><a class="option" href="#" onclick="document.option1.submit();"><?php echo $option3;?></a> 
+            </form>
+        </div>
+        <!--option 4-->
+        <div> 
+            <form method="post" action="" name="option4" id="option4">
+            <br><br><br><a class="option" href="#" onclick="document.option1.submit();"><?php echo $option4;?></a> 
+            </form>
+        </div>
+        
+        <br><br>
+        
         <?php
-        }
+          
         ?>
+        
     </body>
     
 </html>
