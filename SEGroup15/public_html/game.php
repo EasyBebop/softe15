@@ -1,8 +1,6 @@
 <!DOCTYPE HTML>
 <html>
-    
-    <head>
-        
+<head>
     <?php   
     
     $hostname = "173.194.82.183";
@@ -12,7 +10,6 @@
     // Create connection
     $dbhandle = mysql_connect($hostname, $username, $password) 
       or die("Unable to connect to MySQL");
-    echo "Connected to MySQL<br>";
 
     //select a database to work with
     $selected = mysql_select_db("questions",$dbhandle) 
@@ -38,49 +35,48 @@
     
     $sql = "SELECT * FROM questions WHERE QID = $random";
     $result2 = mysql_query($sql);
-    
-        $row = mysql_fetch_array($result2) or die(mysql_error());  
-        $question = $row['Q'];
-        $questionID = $row['QID'];
-        $options = array("$row[correct]","$row[fake1]","$row[fake2]","$row[fake3]");
-        shuffle($options);
-    
+    $row = mysql_fetch_array($result2) or die(mysql_error());  
+    $question = $row['Q'];
+    $questionID = $row['QID'];
+    $options = array("$row[correct]","$row[fake1]","$row[fake2]","$row[fake3]");
+    shuffle($options);
     ?>
         
-        <title>Playing a game</title>
-        <a href="index.html"><img style="position:absolute; left:0; right:0; top:-30px; margin:auto;" src="logo.png" alt="T.R.I.V.I.A" width="300" height="200"></a>
-         <style>
+    <!--layout-->    
+    <title>Playing a game</title>
+    <a href="index.html"><img style="position:absolute; left:0; right:0; top:-30px; margin:auto;" src="logo.png" alt="T.R.I.V.I.A" width="300" height="200"></a>
+        <style>
             html{ background-color:#CCE6FF;}
             body{ margin-left:250px; margin-right:250px;margin-top:150px; margin-bottom:130px; background-color: white; height:900px;}
             p{text-align: center; font-size:25px;}
             .option { text-decoration:none; color: #204081; width: 500px; text-align: center; border: 1px solid #9325BC; padding: 10px; position:absolute; left:0; right:0; margin:auto; font-size:25px; } 
             .option:hover { -moz-box-shadow: 0 0 20px #ccc; -webkit-box-shadow: 0 0 20px #ccc; box-shadow: 0 0 10px #ccc; }
-         </style>
-         <?php
-            //check past answer
-            if(isset($_POST['answer']))
+        </style>
+
+    <?php
+        //check past answer
+        if(isset($_POST['answer']))
+        {
+            $sql2 = "SELECT * FROM questions WHERE QID = $_POST[pastQ]";
+            $query1 = mysql_query($sql2);
+            $correct = mysql_fetch_array($query1);
+            if($_POST[answer] == $correct[correct])
             {
-                $sql2 = "SELECT * FROM questions WHERE QID = $_POST[pastQ]";
-                $query1 = mysql_query($sql2);
-                $correct = mysql_fetch_array($query1);
-                if($_POST[answer] == $correct[correct])
-                {
-                    echo "<script type='text/javascript'>alert(\"GOOD! Correct answer!\");</script>";            
-                    $score = $score + 10;
-                    
-                }
-                else
-                {
-                    echo "<script type='text/javascript'>alert(\"TOO BAD! That's not correct!\");</script>";
-                }
+                echo "<script type='text/javascript'>alert(\"GOOD! Correct answer\");</script>";            
+                $score = $score + 10;          
             }
-        ?>
+            else
+            {
+                echo "<script type='text/javascript'>alert(\"TOO BAD! that's not correct!\");</script>";
+            }
+        }
+    ?>
     </head>
+    
+    <!--show content-->
     <body>
         <img style="position:absolute; left:0; right:0; top:130px;  margin:auto;" src="navbar.png" alt="navbar" width="900" height="40">
-        
-        
-        
+             
         <!-- question -->
         <br><p> <?php echo $question ?> <p>
         
@@ -101,8 +97,5 @@
             </div> <br><br>";
         }
         ?>
-   
-        
-    </body>
-    
+    </body>  
 </html>
