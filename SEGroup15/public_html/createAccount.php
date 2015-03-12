@@ -90,6 +90,14 @@ if(isset($_POST['username']) || isset($_POST['password']))
                 
             </form>
         </div>
+        
+                <p> <br>Log In: </p>
+        <div id="form">
+            <form method="post" action="" name="logForm" id="logForm"><br>
+                 Username: <input type="text" name="username" id="username"><br>
+                 Password: <input type="text" name="password" id="password"><br><br>
+                <a href="index.html"><img style="position:relative; left:20px;" src="back.png" alt="back" width="60" height="50"></a>
+                <input type="image" style="position:relative; left:200px;"  src="submit.png" alt="submit" width="80" height="50">
             
         <?php
         // put your code here
