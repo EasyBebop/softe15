@@ -65,13 +65,13 @@
                 $correct = mysql_fetch_array($query1);
                 if($_POST[answer] == $correct[correct])
                 {
-                    echo "<script type='text/javascript'>alert(\"GOOD! Correct answer\");</script>";            
+                    echo "<script type='text/javascript'>alert(\"GOOD! Correct answer!\");</script>";            
                     $score = $score + 10;
                     
                 }
                 else
                 {
-                    echo "<script type='text/javascript'>alert(\"TOO BAD! that's not correct!\");</script>";
+                    echo "<script type='text/javascript'>alert(\"TOO BAD! That's not correct!\");</script>";
                 }
             }
         ?>
