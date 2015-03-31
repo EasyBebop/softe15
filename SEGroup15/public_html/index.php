@@ -94,8 +94,8 @@
         <a href="index.php"><img style="position:absolute; left:0; right:0; top:-30px; margin:auto;" src="logo.png" alt="T.R.I.V.I.A" width="300" height="200"></a>
         <style>
             html{ background-color:#CCE6FF;}
-            body{ margin-left:250px; margin-right:250px;margin-top:150px; margin-bottom:130px; background-color: white; height:900px;}
-            p{text-align: center; font-size:25px;}
+            body{ background-color: white; width: 70%; height:70%; margin: 0px; padding: 0px; }
+            p{text-align: center; font-size:100%;}
             .click { width: 150px; border: 1px solid #9325BC; padding: 10px; } 
             .click:hover { -moz-box-shadow: 0 0 20px #ccc; -webkit-box-shadow: 0 0 20px #ccc; box-shadow: 0 0 10px #ccc; }
         </style>
@@ -114,7 +114,7 @@
         }        
         ?>        
     </div>
-        <img style="position:absolute; left:0; right:0; top:130px;  margin:auto;" src="navbar.png" alt="navbar" width="900" height="40">
+        <img style="position:absolute; left:0; right:0; top:130px;  margin:auto;" src="navbar.png" alt="navbar" width="50%" height="10%">
         <a href="index.php"><img style="position:absolute; left:270px; top:135px;" src="home.png" alt="navbar" width="60" height="30"></a>
         <a href="createAccount.php"><img style="position:absolute; left:370px; top:135px;" src="createaccount.png" alt="navbar" width="180" height="30"></a>
         <a href="submitQ.php"><img style="position:absolute; left:590px; top:135px;" src="submitq.png" alt="navbar" width="180" height="30"></a>
