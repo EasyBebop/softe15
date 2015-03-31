@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
-
 <html>
-    <head>
+<head>
     <?php   
+    
     $hostname = "173.194.82.183";
     $username = "test";
     $password = "test";
@@ -25,14 +25,13 @@
         $score = 0; 
     }
     
-    //check num of questions that have been answered
-    if(isset($_POST['questiontotal']))
+    //keep number of questions answered
+    if(isset($_POST['questionsanswered']))
     {
-        $questiontotal = $_POST[questiontotal];
+        $questionsanswered = $_POST['questionsanswered'];
     }
-    else
-    {
-        $questiontotal = 0;
+    else {
+        $questionsanswered = 0;
     }
     
     //get number of questions available
@@ -51,9 +50,48 @@
     $options = array("$row[correct]","$row[fake1]","$row[fake2]","$row[fake3]");
     shuffle($options);
     ?>
+        
+    <!--layout-->    
+    <title>Playing a game</title>
+    <a href="index.php"><img style="position:absolute; left:0; right:0; top:-30px; margin:auto;" src="logo.png" alt="T.R.I.V.I.A" width="300" height="200"></a>
+        <style>
+            html{ background-color:#CCE6FF;}
+            body{ margin-left:250px; margin-right:250px;margin-top:150px; margin-bottom:130px; background-color: white; height:900px;}
+            p{text-align: center; font-size:25px;}
+            .option { text-decoration:none; color: #204081; width: 500px; text-align: center; border: 1px solid #9325BC; padding: 10px; position:absolute; left:0; right:0; margin:auto; font-size:25px; } 
+            .option:hover { -moz-box-shadow: 0 0 20px #ccc; -webkit-box-shadow: 0 0 20px #ccc; box-shadow: 0 0 10px #ccc; }
+        </style>
+
+    <?php
+        //check past answer
+        if(isset($_POST['answer']))
+        {
+            $sql2 = "SELECT * FROM questions WHERE QID = $_POST[pastQ]";
+            $query1 = mysql_query($sql2);
+            $correct = mysql_fetch_array($query1);
+            if($_POST[answer] == $correct[correct])
+            {
+                echo "<script type='text/javascript'>alert(\"GOOD! Correct answer\");</script>";            
+                $score = $score + 10;
+                $questionsanswered++;
+            }
+            else
+            {
+                $questionsanswered++;
+                echo "<script type='text/javascript'>alert(\"TOO BAD! that's not correct!\");</script>";
+            }
+        }
+    ?>
     </head>
     
+    <!--show content-->
     <body>
+        <img style="position:absolute; left:0; right:0; top:130px;  margin:auto;" src="navbar.png" alt="navbar" width="900" height="40">
+             
+        <!-- question -->
+        <br><p> <?php echo $question ?> <p>
+        
+        <!-- options -->  
         <?php
         echo "<br> Your score: $score<br>";
         for( $i = 0; $i < sizeof($options); $i++)
@@ -70,5 +108,5 @@
             </div> <br><br>";
         }
         ?>
-    </body>
+    </body>  
 </html>
