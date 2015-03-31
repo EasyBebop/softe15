@@ -36,7 +36,7 @@
             }
         else
         {
-            $sql = 'SELECT AID, username, pass FROM accounts';
+            $sql = 'SELECT AID, username, pass, friends FROM accounts';
 
             $retval = mysql_query( $sql, $dbhandle );
             if(! $retval )
@@ -53,11 +53,11 @@
                     $accountFound = true;
                     if($_POST['password'] == $row['pass'])
                     { 
-                        $_SESSION[username] = $_POST[username];
-                        $user = $_SESSION[username];
-                        $_SESSION[id] = $row['AID'];
-                        $id = $_SESSION[id];
-                        
+                        $_SESSION['username'] = $_POST['username'];
+                        $user = $_SESSION['username'];
+                        $_SESSION['id'] = $row['AID'];
+                        $id = $_SESSION['id'];
+                        $_SESSION['friends'] = $row['friends'];
                         break;
                     }
                     else
@@ -76,8 +76,8 @@
     //check session
     if(isset($_SESSION['username']))
     {
-        $user = $_SESSION[username];
-        $id = $_SESSION[id];
+        $user = $_SESSION['username'];
+        $id = $_SESSION['id'];
     }
     
     //logout function
@@ -102,19 +102,23 @@
     </head>
     <body>
         <!--show content-->
-        <div class="accountInfo">
-            <br> Currently logged in as <?php echo $user; ?> 
-            <div id="logoutButton">
-                <form method="post" action="index.php" name="logout" id="logout">
-                    <input type="submit" value="Logout" name="logoutOrder">
-                </form>
-            </div>
-            
-        </div>
+    <div class="accountInfo">
+        <br> Currently logged in as <?php echo "$user";
+        if(isset($_SESSION['username']))
+        {
+        echo "<div id=\"logoutButton\">";
+            echo "<form method=\"post\" action=\"index.php\" name=\"logout\" id=\"logout\">";
+                echo "<input type=\"submit\" value=\"Logout\" name=\"logoutOrder\">";
+            echo "</form>";
+        echo "</div>";
+        }        
+        ?>        
+    </div>
         <img style="position:absolute; left:0; right:0; top:130px;  margin:auto;" src="navbar.png" alt="navbar" width="900" height="40">
         <a href="index.php"><img style="position:absolute; left:270px; top:135px;" src="home.png" alt="navbar" width="60" height="30"></a>
         <a href="createAccount.php"><img style="position:absolute; left:370px; top:135px;" src="createaccount.png" alt="navbar" width="180" height="30"></a>
         <a href="submitQ.php"><img style="position:absolute; left:590px; top:135px;" src="submitq.png" alt="navbar" width="180" height="30"></a>
+        <a href="friends.php"><img style="position:absolute; left:800px; top:135px;" src="friends.png" alt="navbar" width="150" height="30"></a>
 
         <br><br><p> Welcome to the game of T.R.I.V.I.A<br>It is an acronym for something<br><br>Test your knowledge of useless facts here</p>
         

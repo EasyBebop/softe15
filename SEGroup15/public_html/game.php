@@ -1,3 +1,7 @@
+<?php
+    session_start();
+?>
+
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -14,6 +18,28 @@
     //select a database to work with
     $selected = mysql_select_db("questions",$dbhandle) 
     or die("Could not select examples");
+    
+    //logout
+    if(isset($_POST['logoutOrder']))
+    {
+       logout();
+    }
+    
+    //check session
+    $user = "Guest";
+    $id = -1;
+    if(isset($_SESSION['username']))
+    {
+        $user = $_SESSION['username'];
+        $id = $_SESSION['id'];
+    }
+    //logout function
+    function logout()
+    {
+        session_start();
+        session_unset();
+        session_destroy();
+    }
     
     //keep score
     if(isset($_POST['score']))
@@ -75,6 +101,11 @@
     
     <!--show content-->
     <body>
+        
+        <div class="accountInfo">
+            <br> Currently logged in as <?php echo $user; ?> 
+        </div>
+        
         <img style="position:absolute; left:0; right:0; top:130px;  margin:auto;" src="navbar.png" alt="navbar" width="900" height="40">
              
         <!-- question -->

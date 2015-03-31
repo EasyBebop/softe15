@@ -1,3 +1,7 @@
+<?php
+    session_start();
+?>
+
 <!DOCTYPE html>
 
 <html>
@@ -15,6 +19,27 @@
     //select a database to work with
     $selected = mysql_select_db("accounts",$dbhandle) 
       or die("Could not select examples");
+    
+    //logout
+    if(isset($_POST['logoutOrder']))
+    {
+       logout();
+    }
+    //check session
+    $user = "Guest";
+    $id = -1;
+    if(isset($_SESSION['username']))
+    {
+        $user = $_SESSION['username'];
+        $id = $_SESSION['id'];
+    }
+    //logout function
+    function logout()
+    {
+        session_start();
+        session_unset();
+        session_destroy();
+    }
 
     //check post, create account
     if(isset($_POST['username']) || isset($_POST['password']))
@@ -69,6 +94,20 @@
    
     <body>
     <!--show content-->
+    <div class="accountInfo">
+        <br> Currently logged in as <?php echo $user;
+        if(isset($_SESSION['username']))
+        {
+        echo "<div id=\"logoutButton\">";
+            echo "<form method=\"post\" action=\"index.php\" name=\"logout\" id=\"logout\">";
+                echo "<input type=\"submit\" value=\"Logout\" name=\"logoutOrder\">";
+            echo "</form>";
+        echo "</div>";
+        }        
+        ?>        
+    </div>
+    
+    
     <img style="position:absolute; left:0; right:0; top:130px;  margin:auto;" src="navbar.png" alt="navbar" width="900" height="40">
     <a href="index.php"><img style="position:absolute; left:270px; top:135px;" src="home.png" alt="navbar" width="60" height="30"></a>
     <a href="createAccount.php"><img style="position:absolute; left:370px; top:135px;" src="createaccount.png" alt="navbar" width="180" height="30"></a>

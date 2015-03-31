@@ -1,3 +1,7 @@
+<?php
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html>
     
@@ -13,6 +17,27 @@ $dbhandle = mysql_connect($hostname, $username, $password)
 //select a database to work with
 $selected = mysql_select_db("questions",$dbhandle) 
   or die("Could not select examples");
+
+//logout
+    if(isset($_POST['logoutOrder']))
+    {
+       logout();
+    }
+//check session
+    $user = "Guest";
+    $id = -1;
+    if(isset($_SESSION['username']))
+    {
+        $user = $_SESSION['username'];
+        $id = $_SESSION['id'];
+    }
+    //logout function
+    function logout()
+    {
+        session_start();
+        session_unset();
+        session_destroy();
+    }
 
 //add questions if POST set
 if(isset($_POST['question'])||isset($_POST['answer'])||isset($_POST['fake1'])||isset($_POST['fake2'])||isset($_POST['fake3']))
@@ -45,6 +70,19 @@ if(isset($_POST['question'])||isset($_POST['answer'])||isset($_POST['fake1'])||i
 
 <body>
     <!-- show content -->
+    <div class="accountInfo">
+        <br> Currently logged in as <?php echo $user;
+        if(isset($_SESSION['username']))
+        {
+        echo "<div id=\"logoutButton\">";
+            echo "<form method=\"post\" action=\"index.php\" name=\"logout\" id=\"logout\">";
+                echo "<input type=\"submit\" value=\"Logout\" name=\"logoutOrder\">";
+            echo "</form>";
+        echo "</div>";
+        }        
+        ?>        
+    </div>
+    
     <img style="position:absolute; left:0; right:0; top:130px;  margin:auto;" src="navbar.png" alt="navbar" width="900" height="40">
     <a href="index.php"><img style="position:absolute; left:270px; top:135px;" src="home.png" alt="navbar" width="60" height="30"></a>
     <a href="createAccount.php"><img style="position:absolute; left:370px; top:135px;" src="createaccount.png" alt="navbar" width="180" height="30"></a>
