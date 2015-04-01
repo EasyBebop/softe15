@@ -79,15 +79,51 @@
     } 
     ?>    
 
-    <!--layout-->
-    <a href="index.php"><img style="position:absolute; left:0; right:0; top:-30px; margin:auto;" src="logo.png" alt="T.R.I.V.I.A" width="300" height="200"></a>
-        <style>
-            html{ background-color:#CCE6FF;}
-            body{ margin-left:250px; margin-right:250px;margin-top:150px; margin-bottom:130px; background-color: white; height:900px;}
-            p{text-align: center; font-size:25px;}
-            #form{margin-left:20px; font-size:20px;}
-        </style>
-
+<!--------------------layout-------------------->
+    <style>
+            .accountInfo {
+              position: fixed; 
+              top: -.5em; 
+              margin-left: .5em; 
+              color: rgba(41, 178, 38, 1); }
+              
+            html { 
+              background-color:rgba(44, 1, 255, 1); }
+              
+            body { 
+              position: absolute;
+              background-color:white; 
+              width:100%; 
+              height:95%; 
+              margin:0em; 
+              padding:0em; }
+            
+            p { 
+              position: relative; 
+              text-align: center; 
+              font-size:110%; }
+              
+            #form {
+              position: relative;
+              text-align: center;
+              left: 37.5em;
+              right: 37.5em;
+              width: 10.8em;
+              height: 55%;
+              padding: 0px; }
+              
+    </style>
+    
+    <a href="index.php">
+      <img style="
+        position: relative; 
+        display: block; 
+        margin: auto; 
+        width: 35em; min-width: 30; 
+        height: 6em; min-height: 4em;"
+        color: rgba(46, 19, 178, 0); 
+        src="logo.png" alt="T.R.I.V.I.A"></a>
+        
         <meta charset="UTF-8">
         <title>T.R.I.V.I.A Create an Account </title>
     </head>
@@ -95,7 +131,7 @@
     <body>
     <!--show content-->
     <div class="accountInfo">
-        <br> Currently logged in as <?php echo $user;
+        <br> Currently logged in as <strong><?php echo $user;
         if(isset($_SESSION['username']))
         {
         echo "<div id=\"logoutButton\">";
@@ -104,21 +140,51 @@
             echo "</form>";
         echo "</div>";
         }        
-        ?>        
+        ?></strong>        
     </div>
     
     
-    <img style="position:absolute; left:0; right:0; top:130px;  margin:auto;" src="navbar.png" alt="navbar" width="900" height="40">
-    <a href="index.php"><img style="position:absolute; left:270px; top:135px;" src="home.png" alt="navbar" width="60" height="30"></a>
-    <a href="createAccount.php"><img style="position:absolute; left:370px; top:135px;" src="createaccount.png" alt="navbar" width="180" height="30"></a>
-    <a href="submitQ.php"><img style="position:absolute; left:590px; top:135px;" src="submitq.png" alt="navbar" width="180" height="30"></a>
-    <p> <br>Create a new account </p>
+    <img style="position:absolute; left:0; right:0; top:5em; margin:auto;" src="navbar.png" alt="navbar" width="70%" height="5%">
+        
+        <a href="index.php">
+          <img style="
+            position:absolute; 
+            left:17%; 
+            top:5.2em;" 
+            src="home.png" alt="navbar" width="5%" height="4%"></a>
+        
+        <a href="createAccount.php">
+          <img style="
+            position:absolute; 
+            left:27%; 
+            top:5.2em; 
+            color: rgba(41, 178, 38, 0);" 
+            src="createaccount.png" alt="navbar" width="10%" height="4%"></a>
+        
+        <a href="submitQ.php">
+          <img style="
+            position:absolute; 
+            left:42%; 
+            top:5.2em; 
+            color: rgba(41, 178, 38, 0);" 
+            src="submitq.png" alt="navbar" width="10%" height="4%"></a>
+        
+        <a href="friends.php">
+          <img style="
+            position:absolute; 
+            left:57%; 
+            top:5.2em; 
+            color: rgba(41, 178, 38, 0);" 
+            src="friends.png" alt="navbar" width="10%" height="4%"></a>
+            
+    <p> <br><strong>Create an Account</strong><br><br> </p>
+    
     <div id="form">
         <form method="post" action="" name="createForm" id="createForm"><br>
             Username: <input type="text" name="username" id="username"><br>
             Password: <input type="text" name="password" id="password"><br><br>
-            <a href="index.php"><img style="position:relative; left:20px;" src="back.png" alt="back" width="60" height="50"></a>
-            <input type="image" style="position:relative; left:200px;"  src="submit.png" alt="submit" width="80" height="50">
+            <a href="index.php"><img style="position: relative; left: -2em;" src="back.png" alt="back" width="50" height="40"></a>
+            <input type="image" style="position: relative; left: 2.5em"  src="submit.png" alt="submit" width="50" height="40">
         </form>
     </div>
     </body>

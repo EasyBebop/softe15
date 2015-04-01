@@ -68,17 +68,59 @@
     shuffle($options);
     ?>
         
-    <!--layout-->    
+<!--------------------layout-------------------->    
+    <style> 
+            .accountInfo {
+              position: fixed; 
+              top: -.5em; 
+              margin-left: .5em; 
+              color: rgba(41, 178, 38, 1); }
+              
+            html { 
+              background-color:rgba(44, 1, 255, 1); }
+              
+            body { 
+              position: absolute;
+              background-color:white; 
+              width:100%; 
+              height:95%; 
+              margin:0em; 
+              padding:0em; }
+            
+            p { 
+              position: relative; 
+              text-align: center; 
+              font-size:110%; }
+              
+            .option { 
+              text-decoration: none; 
+              color: #204081; 
+              width: 500px; 
+              text-align: center; 
+              border: 1px solid #9325BC; 
+              padding: 10px; 
+              position: absolute; 
+              left: 0; 
+              right: 0; 
+              margin: auto; 
+              font-size: 25px; } 
+              
+            .option:hover { 
+              -moz-box-shadow: 0 0 20px #ccc; 
+              -webkit-box-shadow: 0 0 20px #ccc; 
+              box-shadow: 0 0 10px #ccc; }
+    </style>
     <title>Playing a game</title>
-    <a href="index.php"><img style="position:absolute; left:0; right:0; top:-30px; margin:auto;" src="logo.png" alt="T.R.I.V.I.A" width="300" height="200"></a>
-        <style>
-            html{ background-color:#CCE6FF;}
-            body{ margin-left:250px; margin-right:250px;margin-top:150px; margin-bottom:130px; background-color: white; height:900px;}
-            p{text-align: center; font-size:25px;}
-            .option { text-decoration:none; color: #204081; width: 500px; text-align: center; border: 1px solid #9325BC; padding: 10px; position:absolute; left:0; right:0; margin:auto; font-size:25px; } 
-            .option:hover { -moz-box-shadow: 0 0 20px #ccc; -webkit-box-shadow: 0 0 20px #ccc; box-shadow: 0 0 10px #ccc; }
-        </style>
-
+    <a href="index.php">
+      <img style="
+        position:relative; 
+        display:block; 
+        margin: auto; 
+        width: 35em; min-width: 30; 
+        height: 6em; min-height: 4em;"
+        color: rgba(46, 19, 178, 0); 
+        src="logo.png" alt="T.R.I.V.I.A"></a>   
+        
     <?php
         //check past answer
         if(isset($_POST['answer']))
@@ -103,11 +145,11 @@
     <body>
         
         <div class="accountInfo">
-            <br> Currently logged in as <?php echo $user; ?> 
+            <br> Currently logged in as <strong><?php echo $user; ?></strong> 
         </div>
         
-        <img style="position:absolute; left:0; right:0; top:130px;  margin:auto;" src="navbar.png" alt="navbar" width="900" height="40">
-             
+        <img style="position:absolute; left:0; right:0; top:5em; margin:auto;" src="navbar.png" alt="navbar" width="70%" height="5%">             
+        
         <!-- question -->
         <br><p> <?php echo $question ?> <p>
         
