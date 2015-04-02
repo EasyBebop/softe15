@@ -24,8 +24,19 @@
     else
     {
         $totalanswers = 0;
-        $playertime = new HRTime\StopWatch;
-        $playertime->start();
+        //Takes the unix timestamp on first run and adds it to the session
+        $time_start = microtime(true);
+        $_SESSION['starttime'] = $time_start;
+        echo "<br><br>Time start is set: $time_start";
+        echo "<br>Please enter the username of the opponent you wish to face:<br>";
+        //form used to take in opponent's username
+        echo "<div> 
+
+                <form method=\"post\" action=\"\" name=\"opponentname\" id=\"opponentname\">
+                    <input type=\"text\" name=\"opponent\" id=\"opponent\" >
+                </form>
+                </div> <br><br>";
+        
     }
     
     //large if statement ecapsulating everything checking # of correct guesses
@@ -109,8 +120,19 @@
             }
     }
     else{
+        //Pulls opponent's time from database and checks it against player time
         $opponentname = $_POST[opponentname];
         $opponenettime = mysql_query("select time from accouts where username = $opponentname");
+        $time_finish = microtime(true);
+        $time_final = $time_finish - $_SESSION[starttime];
+        if($opponenttime >= $time_final)
+        {
+            
+        }
+        else if($opponenttime < $time_final)
+        {
+            
+        }
         
     }
     ?>
