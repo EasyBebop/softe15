@@ -50,7 +50,6 @@ $selected = mysql_select_db("accounts",$dbhandle)
         if(isset($_SESSION['username']))
         {
             global $activeChat, $hash;
-            echo "<br>here";
             $tempHash1 = $_SESSION['id']+$key*$key;
             $tempHash2 = $_POST['toSet'] +$key*$key;
             $hash = $tempHash1 * $tempHash2;
@@ -171,7 +170,6 @@ function get_chat_msg_result()
       
 function set_chat_msg()
 {
-    alert("<?php echo "$activeChat";?>");
     if(typeof XMLHttpRequest != "undefined")
     {
         oxmlHttpSend = new XMLHttpRequest();
