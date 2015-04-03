@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-
+        
     <?php
     $hostname = "173.194.82.183";
     $username = "test";
@@ -36,7 +36,7 @@
             }
         else
         {
-            $sql = 'SELECT AID, username, pass FROM accounts';
+            $sql = 'SELECT AID, username, pass, friends FROM accounts';
 
             $retval = mysql_query( $sql, $dbhandle );
             if(! $retval )
@@ -53,11 +53,11 @@
                     $accountFound = true;
                     if($_POST['password'] == $row['pass'])
                     { 
-                        $_SESSION[username] = $_POST[username];
-                        $user = $_SESSION[username];
-                        $_SESSION[id] = $row['AID'];
-                        $id = $_SESSION[id];
-                        
+                        $_SESSION['username'] = $_POST['username'];
+                        $user = $_SESSION['username'];
+                        $_SESSION['id'] = $row['AID'];
+                        $id = $_SESSION['id'];
+                        $_SESSION['friends'] = $row['friends'];
                         break;
                     }
                     else
@@ -76,8 +76,8 @@
     //check session
     if(isset($_SESSION['username']))
     {
-        $user = $_SESSION[username];
-        $id = $_SESSION[id];
+        $user = $_SESSION['username'];
+        $id = $_SESSION['id'];
     }
     
     //logout function
@@ -89,48 +89,127 @@
     }
     ?>
         
-        <!--layout-->
-        <title>T.R.I.V.I.A.</title>
-        <a href="index.php"><img style="position:absolute; left:0; right:0; top:-30px; margin:auto;" src="logo.png" alt="T.R.I.V.I.A" width="300" height="200"></a>
+<!--------------------layout-------------------->
         <style>
-            html{ background-color:#CCE6FF;}
-            body{ margin-left:250px; margin-right:250px;margin-top:150px; margin-bottom:130px; background-color: white; height:900px;}
-            p{text-align: center; font-size:25px;}
-            .click { width: 150px; border: 1px solid #9325BC; padding: 10px; } 
-            .click:hover { -moz-box-shadow: 0 0 20px #ccc; -webkit-box-shadow: 0 0 20px #ccc; box-shadow: 0 0 10px #ccc; }
+            .accountInfo {
+              position: fixed; 
+              top: -.5em; 
+              margin-left: .5em; 
+              color: rgba(41, 178, 38, 1); }
+              
+            html { 
+              background-color:rgba(44, 1, 255, 1); }
+              
+            body { 
+              position: absolute;
+              background-color:white; 
+              width:100%; 
+              height:95%; 
+              margin:0em; 
+              padding:0em; }
+            
+            p { 
+              position: relative; 
+              text-align: center; 
+              font-size:110%; }
+              
+            #form {
+              position: absolute;
+              text-align: left;
+              width: 10.8em;
+              height: 55%;
+              padding: 5px;
+              border-style: solid;
+              border-color: rgba(41, 178, 38, 1);
+              
+              margin: 5px; }
+            
+            .click { 
+              width: 150px; 
+              border: 1px solid #9325BC; 
+              padding: 10px; } 
+            
+            .click:hover { 
+              -moz-box-shadow: 0 0 20px #ccc; 
+              -webkit-box-shadow: 0 0 20px #ccc; 
+              box-shadow: 0 0 10px #ccc; }
         </style>
+        
+        <title>T.R.I.V.I.A.</title>
+        <a href="index.php">
+          <img style="
+            position:relative; 
+            display:block; 
+            margin: auto; 
+            width: 35em; min-width: 30; 
+            height: 6em; min-height: 4em;"
+            color: rgba(46, 19, 178, 0); 
+            src="logo.png" alt="T.R.I.V.I.A"></a>        
     </head>
     <body>
         <!--show content-->
-        <div class="accountInfo">
-            <br> Currently logged in as <?php echo $user; ?> 
-            <div id="logoutButton">
-                <form method="post" action="index.php" name="logout" id="logout">
-                    <input type="submit" value="Logout" name="logoutOrder">
-                </form>
-            </div>
-            
-        </div>
-        <img style="position:absolute; left:0; right:0; top:130px;  margin:auto;" src="navbar.png" alt="navbar" width="900" height="40">
-        <a href="index.php"><img style="position:absolute; left:270px; top:135px;" src="home.png" alt="navbar" width="60" height="30"></a>
-        <a href="createAccount.php"><img style="position:absolute; left:370px; top:135px;" src="createaccount.png" alt="navbar" width="180" height="30"></a>
-        <a href="submitQ.php"><img style="position:absolute; left:590px; top:135px;" src="submitq.png" alt="navbar" width="180" height="30"></a>
+    <div class="accountInfo">
+        <br> Currently logged in as <strong><?php echo "$user";
+        if(isset($_SESSION['username']))
+        {
+        echo "<div id=\"logoutButton\">";
+            echo "<form method=\"post\" action=\"index.php\" name=\"logout\" id=\"logout\">";
+                echo "<input type=\"submit\" value=\"Logout\" name=\"logoutOrder\">";
+            echo "</form>";
+        echo "</div>";
+        }        
+        ?></strong>        
+    </div>
+        <img style="position:absolute; left:0; right:0; top:5em; margin:auto;" src="navbar.png" alt="navbar" width="70%" height="5%">
+        
+        <a href="index.php">
+          <img style="
+            position:absolute; 
+            left:17%; 
+            top:5.2em;" 
+            src="home.png" alt="navbar" width="5%" height="4%"></a>
+        
+        <a href="createAccount.php">
+          <img style="
+            position:absolute; 
+            left:27%; 
+            top:5.2em; 
+            color: rgba(41, 178, 38, 0);" 
+            src="createaccount.png" alt="navbar" width="10%" height="4%"></a>
+        
+        <a href="submitQ.php">
+          <img style="
+            position:absolute; 
+            left:42%; 
+            top:5.2em; 
+            color: rgba(41, 178, 38, 0);" 
+            src="submitq.png" alt="navbar" width="10%" height="4%"></a>
+        
+        <a href="friends.php">
+          <img style="
+            position:absolute; 
+            left:57%; 
+            top:5.2em; 
+            color: rgba(41, 178, 38, 0);" 
+            src="friends.png" alt="navbar" width="10%" height="4%"></a>
 
         <br><br><p> Welcome to the game of T.R.I.V.I.A<br>It is an acronym for something<br><br>Test your knowledge of useless facts here</p>
         
-        <a href="game.php"> <img class="click" style="position:absolute; left:0; right:0; margin:auto;" src="start.png" alt="start" width="150" height="40" onclick></a>
-        <br><br><br><br>
-        <div padding="5px, 0px, 0px, 0px">
-        <p>To play Time Attack Click below!</p>
-        <a href="timedgame.php"> <img class="click" style="position:absolute; left:0; right:0; margin:auto;" src="start.png" alt="start" width="150" height="40" onclick></a>
-        </div>
+        <a href="game.php"> 
+          <img class="click" style="
+          position: absolute; 
+          left: 0; 
+          right: 0; 
+          margin: auto;" 
+          src="start.png" alt="start" width="15%" height="5%" onclick></a>
+   
         <!--log in form-->
         <div id="form">
-            <br><br><br><br><div> <br>Log In </div>
+            <br><br><br><br><strong> <br>Login: </strong>
             <form method="post" action="" name="logForm" id="logForm"><br>
                 Username: <input type="text" name="username" id="username"><br>
                 Password: <input type="text" name="password" id="password"><br><br>
-                <input type="image" style="position:relative; left:100px;"  src="submit.png" alt="submit" width="80" height="50">
+                <input type="image" style="position:relative; left:7em;"  src="submit.png" alt="submit" width="60" height="20">
             </form>
         </div>
     </body>
