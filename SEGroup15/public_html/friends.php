@@ -122,7 +122,7 @@ $selected = mysql_select_db("accounts",$dbhandle)
 <script type="text/javascript">
 // FUNCTIONS FOR CHAT
 
-var t = setInterval(function(){get_chat_msg()},5000);
+var t = setInterval(function(){get_chat_msg()},3000);
 
 //
 // General Ajax Call
@@ -202,26 +202,80 @@ function set_chat_msg()
     oxmlHttpSend.open("GET",url,true);
     oxmlHttpSend.send(null);
 }
+
+function handleKeyPress(e){
+ var key=e.keyCode || e.which;
+  if (key==13)
+  {
+     set_chat_msg();
+  }
+}
 </script>
 
 
 
 
-    <!--layout-->
-    <a href="index.php"><img style="position:absolute; left:0; right:0; top:-30px; margin:auto;" src="logo.png" alt="T.R.I.V.I.A" width="300" height="200"></a>
-        <style>
-            html{ background-color:#CCE6FF;}
-            body{ margin-left:250px; margin-right:250px;margin-top:150px; margin-bottom:130px; background-color: white; height:900px;}
-            p{text-align: center; font-size:25px;}
-            #form{margin-left:20px; font-size:20px;}
-        </style>
+<!--------------------layout-------------------->    
+    <style> 
+            .accountInfo {
+              position: fixed; 
+              top: -.5em; 
+              margin-left: .5em; 
+              color: rgba(41, 178, 38, 1); }
+
+            #friendText {
+              position:relative;
+              
+            html { 
+              background-color:rgba(44, 1, 255, 1); }
+              
+            body { 
+              position: absolute;
+              background-color:white; 
+              width:100%; 
+              height:95%; 
+              margin:0em; 
+              padding:0em; }
+            
+            p { 
+              position: relative; 
+              text-align: center; 
+              font-size:110%; }
+              
+            .option { 
+              text-decoration: none; 
+              color: #204081; 
+              width: 500px; 
+              text-align: center; 
+              border: 1px solid #9325BC; 
+              padding: 10px; 
+              position: absolute; 
+              left: 0; 
+              right: 0; 
+              margin: auto; 
+              font-size: 25px; } 
+              
+            .option:hover { 
+              -moz-box-shadow: 0 0 20px #ccc; 
+              -webkit-box-shadow: 0 0 20px #ccc; 
+              box-shadow: 0 0 10px #ccc; }
+    </style>
     <title>T.R.I.V.I.A Friends Page </title>
+    <a href="index.php">
+      <img style="
+        position:relative; 
+        display:block; 
+        margin: auto; 
+        width: 35em; min-width: 30; 
+        height: 6em; min-height: 4em;"
+        color: rgba(46, 19, 178, 0); 
+        src="logo.png" alt="T.R.I.V.I.A"></a>   
 </head>
 
 <body>
     <!-- show content -->
     <div class="accountInfo">
-        <br> Currently logged in as <?php echo $user;
+        <br> Currently logged in as <strong><?php echo $user;
         if(isset($_SESSION['username']))
         {
         echo "<div id=\"logoutButton\">";
@@ -230,18 +284,46 @@ function set_chat_msg()
             echo "</form>";
         echo "</div>";
         }        
-        ?>        
+        ?></strong>        
     </div>
     
-    <img style="position:absolute; left:0; right:0; top:130px;  margin:auto;" src="navbar.png" alt="navbar" width="900" height="40">
-    <a href="index.php"><img style="position:absolute; left:270px; top:135px;" src="home.png" alt="navbar" width="60" height="30"></a>
-    <a href="createAccount.php"><img style="position:absolute; left:370px; top:135px;" src="createaccount.png" alt="navbar" width="180" height="30"></a>
-    <a href="submitQ.php"><img style="position:absolute; left:590px; top:135px;" src="submitq.png" alt="navbar" width="180" height="30"></a><br><br>
+    <img style="position:absolute; left:0; right:0; top:5em; margin:auto;" src="navbar.png" alt="navbar" width="70%" height="5%">
+        
+        <a href="index.php">
+          <img style="
+            position:absolute; 
+            left:17%; 
+            top:5.2em;" 
+            src="home.png" alt="Home" width="5%" height="4%"></a>
+        
+        <a href="createAccount.php">
+          <img style="
+            position:absolute; 
+            left:27%; 
+            top:5.2em; 
+            color: rgba(41, 178, 38, 0);" 
+            src="createaccount.png" alt="CreateAccount" width="10%" height="4%"></a>
+        
+        <a href="submitQ.php">
+          <img style="
+            position:absolute; 
+            left:42%; 
+            top:5.2em; 
+            color: rgba(41, 178, 38, 0);" 
+            src="submitq.png" alt="SubmitQuestion" width="10%" height="4%"></a>
+        
+        <a href="friends.php">
+          <img style="
+            position:absolute; 
+            left:57%; 
+            top:5.2em; 
+            color: rgba(41, 178, 38, 0);" 
+            src="friends.png" alt="Friends" width="10%" height="4%"></a>
     
     <?php
     if(isset($_SESSION['username']))
     {
-        echo "<p>List of friends! </p>";
+        echo "<p id='friendText'>Friends: </p>";
         //friends
         $tempFriends = explode(',', $friends);
         for($i = 1; $i<sizeof($tempFriends);$i++)
@@ -269,12 +351,12 @@ function set_chat_msg()
         echo "<div id=\"form\">";
         echo "<form method=\"post\" action=\"friends.php\" name=\"addFriend\" id=\"addFriend\"><br>";
         echo "Enter friend's username: <input type=\"text\" name=\"add\" id=\"add\" size=\"20\"><br>";
-        echo "<input type=\"image\" style=\"position:relative; left:20px;\"  src=\"submit.png\" alt=\"submit\" width=\"70\" height=\"43\"> ";
+        echo "<input type=\"image\" style=\"position:relative; left:15.5em;\"  src=\"submit.png\" alt=\"submit\" width=\"70\" height=\"35\"> ";
         echo "</form></div>";
     }
     else
     {
-        echo"<p> You must be signed in to have friends";
+        echo"<p> You must be signed in to view friends.";
     }
     ?>
  
@@ -297,7 +379,7 @@ function set_chat_msg()
                         <tr>
                             <td style="width: 100px">
                                 Name:</td>
-                            <td style="width: 100px"><input id="txtname" style="width: 150px" type="text" name="name" value="<?php echo $_SESSION;?>" maxlength="15" /></td>
+                            <td style="width: 100px"><input id="txtname" style="width: 150px" type="text" name="name" value="<?php echo "$user";?>" maxlength="15" /></td>
                         </tr>
                     </table>
                 </td>
@@ -312,7 +394,7 @@ function set_chat_msg()
                 <td style="width: 310px">
                     <input id="txtmsg" style="width: 350px" type="text" name="msg" /></td>
                 <td style="width: 85px">
-                    <input id="Submit2" style="font-family: verdana, arial" type="button" value="Send" onclick="set_chat_msg()" /></td>
+                    <input id="Submit2" style="font-family: verdana, arial" type="button" value="Send" onclick="set_chat_msg()" onKeyPress="handleKeyPress(event)"/></td>
             </tr>
             <tr>
                 <td colspan="1" style="font-family: verdana, arial; text-align: center; width: 350px;">
