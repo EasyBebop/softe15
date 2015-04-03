@@ -327,7 +327,6 @@
         //Takes the unix timestamp on first run and adds it to the session
         $time_start = microtime(true);
         $_SESSION['starttime'] = $time_start;
-        echo "<br><br>Time start is set: $time_start";
         echo "<br>Please enter the username of the opponent you wish to face:<br>";
         //form used to take in opponent's username
         echo "<div> 
