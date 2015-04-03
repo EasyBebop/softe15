@@ -20,6 +20,7 @@
     if(isset($_POST['score']))
     {
         $score = $_POST['score'];
+        $opponent = $_POST['opponent'];
         if($score < 1)
         {
             //get number of questions available
@@ -65,12 +66,6 @@
                     {
                     }
                 }
-                //Function used to submit time and answer form
-                function clockStop($i){
-                    $playertime->stop();
-                    $_SESSION['time'] = $playertime->getElapsedTime(HRTime\Unit::SECOND);
-                    $i.submit();
-                }
 
             ?>
             </head>
@@ -92,7 +87,8 @@
                     <form method=\"post\" action=\"\" name=\"option$i\" id=\"option$i\">
                         <input type=\"hidden\" name=\"answer\" id=\"answer\" value=\"$options[$i]\">
                         <input type=\"hidden\" name=\"pastQ\" id=\"pastQ\" value=\"$questionID\">
-                        <input type=\"hidden\" name=\"score\" id=\"score\" value=\"$score\">    
+                        <input type=\"hidden\" name=\"score\" id=\"score\" value=\"$score\">
+                        <input type=\"hidden\" name=\"opponent\" id=\"opponent\" value=\"$opponent\">
                         <br><br><br>
                         <a class=\"option\" href=\"#\" onclick=\"document.option$i.submit();\">$options[$i]</a> 
                     </form>
@@ -100,22 +96,51 @@
                 }
         }
         else{
+            //Gain access to user database
+            $selected = mysql_select_db("accounts",$dbhandle) 
+                or die("Could not select examples");
             //Pulls opponent's time from database and checks it against player time
             $opponentname = $_POST['opponent'];
-            $opponenettime = mysql_query("select time from accouts where username = $opponentname");
+            $playerid = $_SESSION['id'];
+            
+            $sql2 = "SELECT * FROM accounts WHERE username = $opponentname";
+                    $row1 = mysql_query( $sql2, $dbhandle );
+                    $opponent_time = $row1['time'];
+              
+             $sql3 = "SELECT * FROM accounts WHERE AID = $playerid";
+                    $row2 = mysql_query( $sql3, $dbhandle );
+                    $user_time = $row2['time'];
+                    
+//            $opponenettime = mysql_query("SELECT time FROM accounts WHERE username = $opponentname");
+//            $user_time = mysql_query("SELECT time FROM accounts WHERE AID = $playerid");
             $time_finish = microtime(true);
             $time_final = $time_finish - $_SESSION['starttime'];
             echo "You made it this far<br>";
             echo "End Time: $time_final<br>";
             echo "Opponent's name: $opponentname";
-            /*if($opponenttime >= $time_final)
+            echo "Opponent's time: $opponenettime";
+            if($opponenttime >= $time_final)
             {
-
+                echo "Congradulations!!! You've defeated your opponent in this game of wits!";
             }
             else if($opponenttime < $time_final)
             {
-
-            }*/
+                echo "Too Bad! Your opponent has bested you!";
+            }
+            else if($opponenttime == -1)
+            {
+                echo "Congradulations!!! You've defeated your opponent in this game of wits!";
+            }
+            
+            
+            if($user_time == -1)
+            {
+                
+            }
+            else if($user_time > $time_final)
+            {
+                
+            }
 
         }
     }
