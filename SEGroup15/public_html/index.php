@@ -203,18 +203,6 @@
           margin: auto;" 
           src="start.png" alt="start" width="15%" height="5%" onclick></a>
    
-		<br><br><br><br>
-        <div padding="5px, 0px, 0px, 0px">
-        <p>To play Time Attack Click below!</p>
-        <a href="timedgame.php"> 
-          <img class="click" style="
-          position: absolute; 
-          left: 0; 
-          right: 0; 
-          margin: auto;" 
-          src="start.png" alt="start" width="15%" height="5%" onclick></a>
-        </div>
-   
         <!--log in form-->
         <div id="form">
             <br><br><br><br><strong> <br>Login: </strong>
