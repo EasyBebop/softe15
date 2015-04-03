@@ -251,7 +251,7 @@
             echo "Opponent's time: $opponenttime<br>";
             if($opponenttime == -1)
             {
-                echo "Congratulations!!! You've defeated your opponent in this game of wits!";
+                echo "Congradulations!!! You've defeated your opponent in this game of wits!";
             }
             else if($opponenttime < $time_final)
             {
@@ -259,7 +259,7 @@
             }
             else if($opponenttime >= $time_final)
             {
-                echo "Congratulations!!! You've defeated your opponent in this game of wits!";
+                echo "Congradulations!!! You've defeated your opponent in this game of wits!";
             }
             
             
