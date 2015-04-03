@@ -205,7 +205,7 @@
    
 		<br><br><br><br>
         <div padding="5px, 0px, 0px, 0px">
-        <p>To play Time Attack Click below!</p>
+        <p>To play Time Attack click below!</p>
         <a href="timedgame.php"> 
           <img class="click" style="
           position: absolute; 
