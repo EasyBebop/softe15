@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -96,6 +99,17 @@
                 }
         }
         else{
+        ?>
+        <title>Time Attack!!</title>
+            <a href="index.php"><img style="position:absolute; left:0; right:0; top:-30px; margin:auto;" src="logo.png" alt="T.R.I.V.I.A" width="300" height="200"></a>
+                <style>
+                    html{ background-color:#CCE6FF;}
+                    body{ margin-left:250px; margin-right:250px;margin-top:150px; margin-bottom:130px; background-color: white; height:900px;}
+                    p{text-align: center; font-size:25px;}
+                    .option { text-decoration:none; color: #204081; width: 500px; text-align: center; border: 1px solid #9325BC; padding: 10px; position:absolute; left:0; right:0; margin:auto; font-size:25px; } 
+                    .option:hover { -moz-box-shadow: 0 0 20px #ccc; -webkit-box-shadow: 0 0 20px #ccc; box-shadow: 0 0 10px #ccc; }
+                </style>
+        <?php
             //Gain access to user database
             $selected = mysql_select_db("accounts",$dbhandle) 
                 or die("Could not select examples");
@@ -103,23 +117,23 @@
             $opponentname = $_POST['opponent'];
             $playerid = $_SESSION['id'];
             
-            $sql2 = "SELECT * FROM accounts WHERE username = $opponentname";
-                    $row1 = mysql_query( $sql2, $dbhandle );
-                    $opponent_time = $row1['time'];
+            $sql3 = "SELECT * FROM accounts WHERE username =\"$opponentname\"";
+            $result3 = mysql_query($sql3);
+            $row2 = mysql_fetch_array($result3) or die(mysql_error()); 
+            $opponenttime = $row2['time'];
               
-             $sql3 = "SELECT * FROM accounts WHERE AID = $playerid";
-                    $row2 = mysql_query( $sql3, $dbhandle );
-                    $user_time = $row2['time'];
+            $sql4 = "SELECT * FROM accounts WHERE AID =\"$playerid\"";
+            $result4 = mysql_query($sql4);
+            $row3 = mysql_fetch_array($result4) or die(mysql_error()); 
+            $user_time = $row3['time'];
                     
-//            $opponenettime = mysql_query("SELECT time FROM accounts WHERE username = $opponentname");
-//            $user_time = mysql_query("SELECT time FROM accounts WHERE AID = $playerid");
             $time_finish = microtime(true);
             $time_final = $time_finish - $_SESSION['starttime'];
             echo "You made it this far<br>";
             echo "End Time: $time_final<br>";
-            echo "Opponent's name: $opponentname";
-            echo "Opponent's time: $opponenettime";
-            if($opponenttime >= $time_final)
+            echo "Opponent's name: $opponentname<br>";
+            echo "Opponent's time: $opponenttime<br>";
+            if($opponenttime == -1)
             {
                 echo "Congradulations!!! You've defeated your opponent in this game of wits!";
             }
@@ -127,7 +141,7 @@
             {
                 echo "Too Bad! Your opponent has bested you!";
             }
-            else if($opponenttime == -1)
+            else if($opponenttime >= $time_final)
             {
                 echo "Congradulations!!! You've defeated your opponent in this game of wits!";
             }
@@ -135,17 +149,30 @@
             
             if($user_time == -1)
             {
-                
+                $sql5 = "UPDATE accounts SET time=\"$time_final\" WHERE AID=\"$playerid\"";
+                $retval2 = mysql_query($sql5);
             }
             else if($user_time > $time_final)
             {
-                
+                $sql5 = "UPDATE accounts SET time=\"$time_final\" WHERE AID=\"$playerid\"";
+                $retval2 = mysql_query($sql5);
             }
 
         }
     }
     else
     {
+    ?>
+        <title>Time Attack!!</title>
+            <a href="index.php"><img style="position:absolute; left:0; right:0; top:-30px; margin:auto;" src="logo.png" alt="T.R.I.V.I.A" width="300" height="200"></a>
+                <style>
+                    html{ background-color:#CCE6FF;}
+                    body{ margin-left:250px; margin-right:250px;margin-top:150px; margin-bottom:130px; background-color: white; height:900px;}
+                    p{text-align: center; font-size:25px;}
+                    .option { text-decoration:none; color: #204081; width: 500px; text-align: center; border: 1px solid #9325BC; padding: 10px; position:absolute; left:0; right:0; margin:auto; font-size:25px; } 
+                    .option:hover { -moz-box-shadow: 0 0 20px #ccc; -webkit-box-shadow: 0 0 20px #ccc; box-shadow: 0 0 10px #ccc; }
+                </style>
+    <?php
         $score = 0;
         //Takes the unix timestamp on first run and adds it to the session
         $time_start = microtime(true);
