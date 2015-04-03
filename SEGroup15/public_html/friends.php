@@ -297,7 +297,7 @@ function set_chat_msg()
                         <tr>
                             <td style="width: 100px">
                                 Name:</td>
-                            <td style="width: 100px"><input id="txtname" style="width: 150px" type="text" name="name" value="<?php echo "$user";?>" maxlength="15" /></td>
+                            <td style="width: 100px"><input id="txtname" style="width: 150px" type="text" name="name" value="<?php echo $_SESSION;?>" maxlength="15" /></td>
                         </tr>
                     </table>
                 </td>
@@ -312,7 +312,7 @@ function set_chat_msg()
                 <td style="width: 310px">
                     <input id="txtmsg" style="width: 350px" type="text" name="msg" /></td>
                 <td style="width: 85px">
-                    <input id="Submit2" style="font-family: verdana, arial" type="button" value="Send" onclick="set_chat_msg()"/></td>
+                    <input id="Submit2" style="font-family: verdana, arial" type="button" value="Send" onclick="set_chat_msg()" /></td>
             </tr>
             <tr>
                 <td colspan="1" style="font-family: verdana, arial; text-align: center; width: 350px;">
