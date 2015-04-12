@@ -319,6 +319,14 @@ function handleKeyPress(e){
             top:5.2em; 
             color: rgba(41, 178, 38, 0);" 
             src="friends.png" alt="Friends" width="10%" height="4%"></a>
+        
+        <a href="leaderboard.php">
+          <img style="
+            position:absolute; 
+            left:72%; 
+            top:5.2em; 
+            color: rgba(41, 178, 38, 0);" 
+            src="leaderboard.png" alt="navbar" width="10%" height="4%"></a>
     
     <?php
     if(isset($_SESSION['username']))

@@ -44,7 +44,7 @@
     //keep score
     if(isset($_POST['score']))
     {
-        $score = $_POST[score];
+        $score = $_POST['score'];
     }
     else
     {
@@ -66,7 +66,39 @@
     $questionID = $row['QID'];
     $options = array("$row[correct]","$row[fake1]","$row[fake2]","$row[fake3]");
     shuffle($options);
+    
+    //functions
+    
+    function setHighscore($score)
+    {
+            global $dbhandle;
+            if(isset($_SESSION['username']))
+            {
+                //Gain access to user database
+                $selected = mysql_select_db("accounts",$dbhandle) 
+                    or die("Could not select examples");
+                
+                $sql3 = "SELECT * FROM accounts WHERE username = \"$_SESSION[username]\"";
+                $result3 = mysql_query($sql3);
+                $row2 = mysql_fetch_array($result3) or die(mysql_error()); 
+                $oldScore = $row2['score'];
+                
+                if($score > $oldScore)
+                {
+                    $sql4 = "UPDATE accounts SET score=\"$score\" WHERE AID=$_SESSION[id]";
+                    $retval4 = mysql_query( $sql4, $dbhandle );
+                }
+                
+                //set back to questions database
+                $selected2 = mysql_select_db("questions",$dbhandle) 
+                    or die("Could not select questions"); 
+            }
+              
+    }
+    
     ?>
+    
+    
         
 <!--------------------layout-------------------->    
     <style> 
@@ -128,10 +160,11 @@
             $sql2 = "SELECT * FROM questions WHERE QID = $_POST[pastQ]";
             $query1 = mysql_query($sql2);
             $correct = mysql_fetch_array($query1);
-            if($_POST[answer] == $correct[correct])
+            if($_POST['answer'] == $correct['correct'])
             {
                 echo "<script type='text/javascript'>alert(\"GOOD! Correct answer\");</script>";            
-                $score = $score + 10;          
+                $score = $score + 10;
+                setHighscore($score);
             }
             else
             {

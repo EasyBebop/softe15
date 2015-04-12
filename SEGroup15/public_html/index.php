@@ -36,7 +36,7 @@
             }
         else
         {
-            $sql = 'SELECT AID, username, pass, friends FROM accounts';
+            $sql = 'SELECT * FROM accounts';
 
             $retval = mysql_query( $sql, $dbhandle );
             if(! $retval )
@@ -58,6 +58,7 @@
                         $_SESSION['id'] = $row['AID'];
                         $id = $_SESSION['id'];
                         $_SESSION['friends'] = $row['friends'];
+                        $_SESSION['score'] = $row['score'];
                         break;
                     }
                     else
@@ -192,6 +193,14 @@
             top:5.2em; 
             color: rgba(41, 178, 38, 0);" 
             src="friends.png" alt="navbar" width="10%" height="4%"></a>
+        
+        <a href="leaderboard.php">
+          <img style="
+            position:absolute; 
+            left:72%; 
+            top:5.2em; 
+            color: rgba(41, 178, 38, 0);" 
+            src="leaderboard.png" alt="navbar" width="10%" height="4%"></a>
 
         <br><br><p> Welcome to the game of T.R.I.V.I.A<br>It is an acronym for something<br><br>Test your knowledge of useless facts here</p>
         

@@ -3,27 +3,29 @@
 ?>
 
 <!DOCTYPE html>
+
 <html>
+    <head>
+
+    <?php
+    $hostname = "173.194.82.183";
+    $username = "test";
+    $password = "test";
+
+    // Create connection
+    $dbhandle = mysql_connect($hostname, $username, $password) 
+      or die("Unable to connect to MySQL");
+
+    //select a database to work with
+    $selected = mysql_select_db("accounts",$dbhandle) 
+      or die("Could not select examples");
     
-<?php
-$hostname = "173.194.82.183";
-$username = "test";
-$password = "test";
-
-// Create connection
-$dbhandle = mysql_connect($hostname, $username, $password) 
-  or die("Unable to connect to MySQL");
-
-//select a database to work with
-$selected = mysql_select_db("questions",$dbhandle) 
-  or die("Could not select examples");
-
-//logout
+    //logout
     if(isset($_POST['logoutOrder']))
     {
        logout();
     }
-//check session
+    //check session
     $user = "Guest";
     $id = -1;
     if(isset($_SESSION['username']))
@@ -38,25 +40,7 @@ $selected = mysql_select_db("questions",$dbhandle)
         session_unset();
         session_destroy();
     }
-
-//add questions if POST set
-if(isset($_POST['question'])||isset($_POST['answer'])||isset($_POST['fake1'])||isset($_POST['fake2'])||isset($_POST['fake3']))
-{	
-	if(empty($_POST['question'])|| empty($_POST['answer']) || empty($_POST['fake1']) || empty($_POST['fake2'])|| empty($_POST['fake3']))
-	{
-		echo "Please fill in all fields to submit a question. <br>";
-	}
-        else
-        {
-             $sql = "INSERT INTO questions (Q,correct,fake1,fake2,fake3)
-             VALUES ('$_POST[question]','$_POST[answer]','$_POST[fake1]','$_POST[fake2]','$_POST[fake3]')";
-             $retval = mysql_query( $sql, $dbhandle );
-             echo "Congratulations!  Your question was successfully submitted!";
-        }   
-}
-?>
-
-<head>
+?>    
 
 <!--------------------layout-------------------->
     <style>
@@ -85,9 +69,12 @@ if(isset($_POST['question'])||isset($_POST['answer'])||isset($_POST['fake1'])||i
             #form {
               position: relative;
               text-align: center;
-              width: 80em;
-              height: 100%;
+              left: 37.5em;
+              right: 37.5em;
+              width: 10.8em;
+              height: 55%;
               padding: 0px; }
+              
     </style>
     
     <a href="index.php">
@@ -100,11 +87,11 @@ if(isset($_POST['question'])||isset($_POST['answer'])||isset($_POST['fake1'])||i
         color: rgba(46, 19, 178, 0); 
         src="logo.png" alt="T.R.I.V.I.A"></a>
         
-    <title>T.R.I.V.I.A Question Submission </title>
-</head>
-
-<body>
-    <!-- show content -->
+        <meta charset="UTF-8">
+        <title>T.R.I.V.I.A Create an Account </title>
+    </head>
+   <body>
+    <!--show content-->
     <div class="accountInfo">
         <br> Currently logged in as <strong><?php echo $user;
         if(isset($_SESSION['username']))
@@ -117,6 +104,7 @@ if(isset($_POST['question'])||isset($_POST['answer'])||isset($_POST['fake1'])||i
         }        
         ?></strong>        
     </div>
+    
     
     <img style="position:absolute; left:0; right:0; top:5em; margin:auto;" src="navbar.png" alt="navbar" width="70%" height="5%">
         
@@ -150,29 +138,5 @@ if(isset($_POST['question'])||isset($_POST['answer'])||isset($_POST['fake1'])||i
             top:5.2em; 
             color: rgba(41, 178, 38, 0);" 
             src="friends.png" alt="navbar" width="10%" height="4%"></a>
-    
-        <a href="leaderboard.php">
-          <img style="
-            position:absolute; 
-            left:72%; 
-            top:5.2em; 
-            color: rgba(41, 178, 38, 0);" 
-            src="leaderboard.png" alt="navbar" width="10%" height="4%"></a>
-            
-    <p>Here you can submit your own questions to our servers! <br> Try entering a question, a correct answer, and 3 fake answers. </p>
-    <p> You may see your question one day while playing! </p><br><br>
-    <div id="form">
-        <form method="post" action="" name="submitq" id="submitq"><br>
-            Question: <input type="text" name="question" id="question" size="110"><br><br>
-            Correct Answer: <input type="text" name="answer" id="answer" size="110"><br><br>
-            Fake Answer: <input type="text" name="fake1" id="fake1" size="110"><br><br>
-            Fake Answer: <input type="text" name="fake2" id="fake2" size="110"><br><br>
-            Fake Answer: <input type="text" name="fake3" id="fake3" size="110"><br><br>
-            <a href="index.php"><img style="position:relative; left: -2em;" src="back.png" alt="back" width="50" height="40"></a>
-            <input type="image" style="position:relative; left: 2.5em;"  src="submit.png" alt="submit" width="50" height="40"> 
-        </form>
-     </div>
-    
-</body>
+     </body>
 </html>
-
