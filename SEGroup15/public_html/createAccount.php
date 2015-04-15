@@ -73,7 +73,7 @@
                 $sql2 = "INSERT INTO accounts (username,pass)
                          VALUES ('$_POST[username]', '$_POST[password]')";
                 $retval2 = mysql_query( $sql2, $dbhandle );
-                echo "<br>Created account successfully";
+                echo "<br><br><br><br>Created account successfully";
             }
         }
     } 
