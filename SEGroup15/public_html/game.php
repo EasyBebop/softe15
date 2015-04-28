@@ -5,6 +5,12 @@
 <!DOCTYPE HTML>
 <html>
 <head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
     <?php   
     
     $hostname = "173.194.82.183";
@@ -45,12 +51,10 @@
     if(isset($_POST['score']))
     {
         $score = $_POST['score'];
-        $incorrect = $_POST['incorrect'];
     }
     else
     {
-        $score = 0;
-        $incorrect = 0;
+        $score = 0; 
     }
     
     //get number of questions available
@@ -100,6 +104,19 @@
     
     ?>
     
+    
+        
+    <title>Playing a game</title>
+    <a href="index-boot.php">
+      <img style="
+        position:relative; 
+        display:block; 
+        margin: auto; 
+        width: 35em; min-width: 30; 
+        height: 6em; min-height: 4em;"
+        color: rgba(46, 19, 178, 0); 
+        src="logo.png" alt="T.R.I.V.I.A"></a>   
+        
     <?php
         //check past answer
         if(isset($_POST['answer']))
@@ -115,91 +132,35 @@
             }
             else
             {
-                $incorrect++;
                 echo "<script type='text/javascript'>alert(\"TOO BAD! that's not correct!\");</script>";
             }
         }
     ?>
-    
-<!--------------Incorrect guess count check------------>
-    <?php
-
-        if($incorrect >= 3)
-        {
-    ?>
-    
-        
-<!--------------------layout-------------------->    
-    <style> 
-            .accountInfo {
-              position: fixed; 
-              top: -.5em; 
-              margin-left: .5em; 
-              color: rgba(41, 178, 38, 1); }
-              
-            html { 
-              background-color:rgba(44, 1, 255, 1); }
-              
-            body { 
-              position: absolute;
-              background-color:white; 
-              width:100%; 
-              height:95%; 
-              margin:0em; 
-              padding:0em; }
-            
-            p { 
-              position: relative; 
-              text-align: center; 
-              font-size:110%; }
-              
-            .option { 
-              text-decoration: none; 
-              color: #204081; 
-              width: 500px; 
-              text-align: center; 
-              border: 1px solid #9325BC; 
-              padding: 10px; 
-              position: absolute; 
-              left: 0; 
-              right: 0; 
-              margin: auto; 
-              font-size: 25px; } 
-              
-            .option:hover { 
-              -moz-box-shadow: 0 0 20px #ccc; 
-              -webkit-box-shadow: 0 0 20px #ccc; 
-              box-shadow: 0 0 10px #ccc; }
-    </style>
-    <title>Playing a game</title>
-    <a href="index.php">
-      <img style="
-        position:relative; 
-        display:block; 
-        margin: auto; 
-        width: 35em; min-width: 30; 
-        height: 6em; min-height: 4em;"
-        color: rgba(46, 19, 178, 0); 
-        src="logo.png" alt="T.R.I.V.I.A"></a>   
-        
-
     </head>
     
     <!--show content-->
     <body>
-        
-        <div class="accountInfo">
-            <br> Currently logged in as <strong><?php echo $user; ?></strong> 
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        <div class="accountInfo ">
+            <h6>Currently logged in as <strong><?php echo $user; ?></strong></h6> 
         </div>
         
-        <img style="position:absolute; left:0; right:0; top:5em; margin:auto;" src="navbar.png" alt="navbar" width="70%" height="5%">             
-        
+        <div class="panel panel-default full-height">
         <!-- question -->
-        <br><p> <?php echo $question ?> <p>
-        
+        <div class="panel-heading">
+            <div class="text-center">
+                <h1> <?php echo $question ?> </h1>
+            </div>
+        </div>
+        <div class="panel-body">
         <!-- options -->  
         <?php
-        echo "<br> Your score: $score<br>";
+        echo "<div class=\"row\"> "
+                ."<div class=\"col-xs-12 col-sm-6 col-md-6 col-md-offset-3\">"
+                . "<h4>Your score: $score</h4>"
+                ."</div>"
+            . "</div>";
         for( $i = 0; $i < sizeof($options); $i++)
         {
              echo "<div> 
@@ -207,22 +168,72 @@
             <form method=\"post\" action=\"\" name=\"option$i\" id=\"option$i\">
                 <input type=\"hidden\" name=\"answer\" id=\"answer\" value=\"$options[$i]\">
                 <input type=\"hidden\" name=\"pastQ\" id=\"pastQ\" value=\"$questionID\">
-                <input type=\"hidden\" name=\"score\" id=\"score\" value=\"$score\">
-                <input type=\"hidden\" name=\"incorrect\" id=\"incorrect\" value=\"$incorrect\">
-                <br><br><br>
-                <a class=\"option\" href=\"#\" onclick=\"document.option$i.submit();\">$options[$i]</a> 
+                <input type=\"hidden\" name=\"score\" id=\"score\" value=\"$score\">    
+                <div class=\"row\">
+                    <div class=\"col-xs-12 col-sm-6 col-md-6 col-md-offset-3\">
+                        <button href=\"#\" type=\"submit\" class=\"option btn btn-lg btn-game btn-block\" onclick=\"document.option$i.submit();\">$options[$i]</button> 
+                    </div>
+                </div>
             </form>
             </div> <br><br>";
         }
         ?>
-    <?php
-        }
-        else{
-        ?>
-        
-        <?php
-        }
-        ?>
+        </div>
+        </div>
+    
+        <style>
+            .accountInfo {
+              position: fixed; 
+              top: -.5em; 
+              margin-left: .5em; 
+              color: rgba(41, 178, 38, 1); }
+            
+            .btn-game { 
+                color: #ffffff; 
+                background-color: #2043b1; 
+                border-color: #35488e; 
+              } 
+
+              .btn-game:hover, 
+              .btn-game:focus, 
+              .btn-game:active, 
+              .btn-game.active, 
+              .open .dropdown-toggle.btn-game { 
+                color: #ffffff; 
+                background-color: #49247A; 
+                border-color: #130269; 
+              } 
+
+              .btn-game:active, 
+              .btn-game.active, 
+              .open .dropdown-toggle.btn-game { 
+                background-image: none; 
+              } 
+
+              .btn-game.disabled, 
+              .btn-game[disabled], 
+              fieldset[disabled] .btn-game, 
+              .btn-game.disabled:hover, 
+              .btn-game[disabled]:hover, 
+              fieldset[disabled] .btn-game:hover, 
+              .btn-game.disabled:focus, 
+              .btn-game[disabled]:focus, 
+              fieldset[disabled] .btn-game:focus, 
+              .btn-game.disabled:active, 
+              .btn-game[disabled]:active, 
+              fieldset[disabled] .btn-game:active, 
+              .btn-game.disabled.active, 
+              .btn-game[disabled].active, 
+              fieldset[disabled] .btn-game.active { 
+                background-color: #611BBD; 
+                border-color: #130269; 
+              } 
+
+              .btn-game .badge { 
+                color: #611BBD; 
+                background-color: #ffffff; 
+              }
+        </style>
     
     </body>  
 </html>
