@@ -45,10 +45,12 @@
     if(isset($_POST['score']))
     {
         $score = $_POST['score'];
+        $incorrect = $_POST['incorrect'];
     }
     else
     {
-        $score = 0; 
+        $score = 0;
+        $incorrect = 0;
     }
     
     //get number of questions available
@@ -98,6 +100,33 @@
     
     ?>
     
+    <?php
+        //check past answer
+        if(isset($_POST['answer']))
+        {
+            $sql2 = "SELECT * FROM questions WHERE QID = $_POST[pastQ]";
+            $query1 = mysql_query($sql2);
+            $correct = mysql_fetch_array($query1);
+            if($_POST['answer'] == $correct['correct'])
+            {
+                echo "<script type='text/javascript'>alert(\"GOOD! Correct answer\");</script>";            
+                $score = $score + 10;
+                setHighscore($score);
+            }
+            else
+            {
+                $incorrect++;
+                echo "<script type='text/javascript'>alert(\"TOO BAD! that's not correct!\");</script>";
+            }
+        }
+    ?>
+    
+<!--------------Incorrect guess count check------------>
+    <?php
+
+        if($incorrect >= 3)
+        {
+    ?>
     
         
 <!--------------------layout-------------------->    
@@ -153,25 +182,7 @@
         color: rgba(46, 19, 178, 0); 
         src="logo.png" alt="T.R.I.V.I.A"></a>   
         
-    <?php
-        //check past answer
-        if(isset($_POST['answer']))
-        {
-            $sql2 = "SELECT * FROM questions WHERE QID = $_POST[pastQ]";
-            $query1 = mysql_query($sql2);
-            $correct = mysql_fetch_array($query1);
-            if($_POST['answer'] == $correct['correct'])
-            {
-                echo "<script type='text/javascript'>alert(\"GOOD! Correct answer\");</script>";            
-                $score = $score + 10;
-                setHighscore($score);
-            }
-            else
-            {
-                echo "<script type='text/javascript'>alert(\"TOO BAD! that's not correct!\");</script>";
-            }
-        }
-    ?>
+
     </head>
     
     <!--show content-->
@@ -196,12 +207,22 @@
             <form method=\"post\" action=\"\" name=\"option$i\" id=\"option$i\">
                 <input type=\"hidden\" name=\"answer\" id=\"answer\" value=\"$options[$i]\">
                 <input type=\"hidden\" name=\"pastQ\" id=\"pastQ\" value=\"$questionID\">
-                <input type=\"hidden\" name=\"score\" id=\"score\" value=\"$score\">    
+                <input type=\"hidden\" name=\"score\" id=\"score\" value=\"$score\">
+                <input type=\"hidden\" name=\"incorrect\" id=\"incorrect\" value=\"$incorrect\">
                 <br><br><br>
                 <a class=\"option\" href=\"#\" onclick=\"document.option$i.submit();\">$options[$i]</a> 
             </form>
             </div> <br><br>";
         }
         ?>
+    <?php
+        }
+        else{
+        ?>
+        
+        <?php
+        }
+        ?>
+    
     </body>  
 </html>

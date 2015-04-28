@@ -40,7 +40,21 @@
     {
         $score = $_POST['score'];
         $opponent = $_POST['opponent'];
-        if($score < 1)
+        //check past answer
+        if(isset($_POST['answer']))
+        {
+            $sql2 = "SELECT * FROM questions WHERE QID = $_POST[pastQ]";
+            $query1 = mysql_query($sql2);
+            $correct = mysql_fetch_array($query1);
+            if($_POST[answer] == $correct[correct])
+            {          
+               $score = $score + 1;
+            }
+            else
+            {
+            }
+        }
+        if($score >= 3)
         {
             //get number of questions available
             $result1 = mysql_query("select count(1) FROM questions");
@@ -58,6 +72,7 @@
             $options = array("$row[correct]","$row[fake1]","$row[fake2]","$row[fake3]");
             shuffle($options);
             ?>
+    
 
 <!--------------------layout--------------------> 
         <title>Time Attack!!</title>
@@ -114,23 +129,6 @@
             color: rgba(46, 19, 178, 0); 
             src="logo.png" alt="T.R.I.V.I.A"></a> 
 
-            <?php
-                //check past answer
-                if(isset($_POST['answer']))
-                {
-                    $sql2 = "SELECT * FROM questions WHERE QID = $_POST[pastQ]";
-                    $query1 = mysql_query($sql2);
-                    $correct = mysql_fetch_array($query1);
-                    if($_POST[answer] == $correct[correct])
-                    {          
-                       $score = $score + 1;
-                    }
-                    else
-                    {
-                    }
-                }
-
-            ?>
             </head>
 
             <!--show content-->
