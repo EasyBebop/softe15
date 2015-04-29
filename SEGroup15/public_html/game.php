@@ -303,7 +303,8 @@
                  echo "<div class=\"col-xs-12 col-sm-12 col-md-8 col-lg-4 col-lg-offset-4\">"
                 . "<div class\"panel panel-default\""
                 . " <div class=\"panel-heading text-center\">"
-                . "<h3>Too Bad! You've gotten too many questions wrong!</h3>"
+                . "<h3><b>GAME OVER</b><br><br>Too bad! You've gotten too many questions wrong!<br><br>
+                    <em>Final Score</em>: $score</h3>"
                 . "</div>"
                 . "<div class=\"panel-body text-center\""
                 . "Final Score: $score<br>";

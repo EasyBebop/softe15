@@ -338,7 +338,7 @@
             }
             else if($opponenttime < $time_final)
             {
-                echo "<strong>Too Bad! Your opponent has bested you!</strong>";
+                echo "<strong>Too bad! Your opponent has bested you!</strong>";
             }
             else if($opponenttime >= $time_final)
             {
