@@ -261,7 +261,7 @@ function handleKeyPress(e){
               box-shadow: 0 0 10px #ccc; }
     </style>
     <title>T.R.I.V.I.A Friends Page </title>
-    <a href="index.php">
+    <a href="index-boot.php">
       <img style="
         position:relative; 
         display:block; 

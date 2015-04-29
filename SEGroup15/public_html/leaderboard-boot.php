@@ -88,7 +88,7 @@
               
     </style>
     
-    <a href="index.php">
+    <a href="index-boot.php">
       <img style="
         position: relative; 
         display: block; 
