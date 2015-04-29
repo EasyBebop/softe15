@@ -43,7 +43,22 @@
     {
         $score = $_POST['score'];
         $opponent = $_POST['opponent'];
-        if($score < 1)
+        //check past answer
+        if(isset($_POST['answer']))
+        {
+            $sql2 = "SELECT * FROM questions WHERE QID = $_POST[pastQ]";
+            $query1 = mysql_query($sql2);
+            $correct = mysql_fetch_array($query1);
+            if($_POST['answer'] == $correct['correct'])
+            {          
+               $score = $score + 1;
+            }
+            else
+            {
+            }
+        }
+
+        if($score < 2)
         {
             //get number of questions available
             $result1 = mysql_query("select count(1) FROM questions");
@@ -161,23 +176,6 @@
             color: rgba(46, 19, 178, 0); 
             src="logo.png" alt="T.R.I.V.I.A"></a> 
         </div>
-            <?php
-                //check past answer
-                if(isset($_POST['answer']))
-                {
-                    $sql2 = "SELECT * FROM questions WHERE QID = $_POST[pastQ]";
-                    $query1 = mysql_query($sql2);
-                    $correct = mysql_fetch_array($query1);
-                    if($_POST[answer] == $correct[correct])
-                    {          
-                       $score = $score + 1;
-                    }
-                    else
-                    {
-                    }
-                }
-
-            ?>
             </head>
 
             <!--show content-->
@@ -292,6 +290,19 @@
                     -webkit-box-shadow: 0 0 20px #ccc; 
                     box-shadow: 0 0 10px #ccc; }
                  </style>
+            <div class="container-fluid">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                        <ul class="nav nav-justified" style="text-align:center">
+                            <li><a href="index-boot.php">Home</a></li>
+                            <li><a href="createAccount-boot.php">Create Account</a></li>
+                            <li><a href="submitQ-boot.php">Submit Question</a></li>
+                            <li><a href="friends-boot.php">Friends</a></li>
+                            <li><a href="leaderboard-boot.php">Leaderboard</a></li>
+                        </ul>
+                </div>
+            </nav>
+            </div>
         <?php
             //Gain access to user database
             $selected = mysql_select_db("accounts",$dbhandle) 

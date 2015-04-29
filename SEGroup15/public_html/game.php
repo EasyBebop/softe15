@@ -51,10 +51,12 @@
     if(isset($_POST['score']))
     {
         $score = $_POST['score'];
+        $incorrect = $_POST['incorrect'];
     }
     else
     {
-        $score = 0; 
+        $score = 0;
+        $incorrect = 0;
     }
     
     //get number of questions available
@@ -116,7 +118,7 @@
         height: 6em; min-height: 4em;"
         color: rgba(46, 19, 178, 0); 
         src="logo.png" alt="T.R.I.V.I.A"></a>   
-        
+
     <?php
         //check past answer
         if(isset($_POST['answer']))
@@ -132,9 +134,13 @@
             }
             else
             {
+                $incorrect++;
                 echo "<script type='text/javascript'>alert(\"TOO BAD! that's not correct!\");</script>";
             }
         }
+        
+        if($incorrect < 3)
+        {
     ?>
     </head>
     
@@ -168,7 +174,8 @@
             <form method=\"post\" action=\"\" name=\"option$i\" id=\"option$i\">
                 <input type=\"hidden\" name=\"answer\" id=\"answer\" value=\"$options[$i]\">
                 <input type=\"hidden\" name=\"pastQ\" id=\"pastQ\" value=\"$questionID\">
-                <input type=\"hidden\" name=\"score\" id=\"score\" value=\"$score\">    
+                <input type=\"hidden\" name=\"score\" id=\"score\" value=\"$score\">   
+                <input type=\"hidden\" name=\"incorrect\" id=\"incorrect\" value=\"$incorrect\">
                 <div class=\"row\">
                     <div class=\"col-xs-12 col-sm-6 col-md-6 col-md-offset-3\">
                         <button href=\"#\" type=\"submit\" class=\"option btn btn-lg btn-game btn-block\" onclick=\"document.option$i.submit();\">$options[$i]</button> 
@@ -180,6 +187,7 @@
         ?>
         </div>
         </div>
+        
     
         <style>
             .accountInfo {
@@ -235,5 +243,71 @@
               }
         </style>
     
+        <!--end if statement checking incorrect-->
+        <?php
+        }
+        else{
+        ?>
+            <style>
+              .accountInfo {
+                position: fixed; 
+                top: -.5em; 
+                margin-left: .5em; 
+                color: rgba(41, 178, 38, 1); }
+
+              body { 
+                position: absolute;
+                background-color:white; 
+                width:100%; 
+                height:95%; 
+                margin:0em; 
+                padding:0em; }
+
+              p { 
+                position: relative; 
+                text-align: center; 
+                font-size:110%; }
+
+              .option { 
+                text-decoration: none; 
+                color: #204081; 
+                width: 500px; 
+                text-align: center; 
+                border: 1px solid #9325BC; 
+                padding: 10px; 
+                position: absolute; 
+                left: 0; 
+                right: 0; 
+                margin: auto; 
+                font-size:25px; } 
+
+              .option:hover { 
+                -moz-box-shadow: 0 0 20px #ccc; 
+                -webkit-box-shadow: 0 0 20px #ccc; 
+                box-shadow: 0 0 10px #ccc; }
+             </style>
+            <div class="container-fluid">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                        <ul class="nav nav-justified" style="text-align:center">
+                            <li><a href="index-boot.php">Home</a></li>
+                            <li><a href="createAccount-boot.php">Create Account</a></li>
+                            <li><a href="submitQ-boot.php">Submit Question</a></li>
+                            <li><a href="friends-boot.php">Friends</a></li>
+                            <li><a href="leaderboard-boot.php">Leaderboard</a></li>
+                        </ul>
+                </div>
+            </nav>
+            </div>
+        <?php
+                 echo "<div class=\"col-xs-12 col-sm-12 col-md-8 col-lg-4 col-lg-offset-4\">"
+                . "<div class\"panel panel-default\""
+                . " <div class=\"panel-heading text-center\">"
+                . "<h3>Too Bad! You've gotten too many questions wrong!</h3>"
+                . "</div>"
+                . "<div class=\"panel-body text-center\""
+                . "Final Score: $score<br>";
+        }
+        ?>
     </body>  
 </html>
